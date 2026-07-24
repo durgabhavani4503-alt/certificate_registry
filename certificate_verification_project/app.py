@@ -28,6 +28,8 @@ ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif", "webp"}
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-change-me-in-production")
 app.config["UPLOAD_FOLDER"] = str(UPLOAD_FOLDER)
+DATABASE = os.path.join(str(BASE_DIR), 'database.db')
+app.config['DATABASE'] = DATABASE
 
 for folder in (
     UPLOAD_FOLDER,
