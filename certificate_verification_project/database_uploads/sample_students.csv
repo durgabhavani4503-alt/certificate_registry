@@ -1,0 +1,4 @@
+student_name,roll_no,certificate_id,course,branch,cgpa,year,issue_date,verification_status
+YATAKUNTA DURGA BHAVANI,NPTEL25MA99S272101101,CERT-NPTEL-2025-001,Foundations of R Software,Computer Science,7.3,2025,2025-10-15,issued
+ARUN KUMAR SHARMA,NPTEL24CS88S123456789,CERT-NPTEL-2024-002,Programming in Python,Information Technology,8.1,2024,2024-08-20,issued
+PRIYA NAIR,NPTEL23EE77S987654321,CERT-NPTEL-2023-003,Basic Electrical Circuits,Electrical Engineering,6.9,2023,2023-12-01,revoked

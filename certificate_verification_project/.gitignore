@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+uploads/originals/*
+uploads/extracted/*
+!uploads/.gitkeep
+database/students.db
+verified_certificates/*
+!verified_certificates/.gitkeep
+.env

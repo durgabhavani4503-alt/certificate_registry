@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block title %}Verification Dashboard — CertVerify{% endblock %}
+{% block body_class %}dashboard-page{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+<style>
+    :root {
+        --vrsec-blue: #1b498a;
+        --vrsec-dark-blue: #0d256b;
+        --vrsec-orange: #f15a24;
+        --bg-light: #f8fafc;
+        --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        --radius-main: 16px;
+    }
+    body {
+        background-color: var(--bg-light) !important;
+        font-family: system-ui, -apple-system, sans-serif !important;
+    }
+    .app-header-override {
+        background: linear-gradient(135deg, var(--vrsec-blue) 0%, var(--vrsec-dark-blue) 100%);
+        color: #ffffff;
+        padding: 16px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 4px solid var(--vrsec-orange);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        margin: -2rem -2rem 2rem -2rem;
+    }
+    .brand-block { display: flex; align-items: center; gap: 16px; }
+    .brand-logo { height: 55px; width: auto; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15)); }
+
+    .brand-text h1 {
+        margin: 0 !important;
+        font-size: 18px !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        color: #ffffff !important;
+        line-height: 1.2 !important;
+    }
+
+    .brand-text p {
+        margin: 2px 0 0 0 !important;
+        font-size: 13px !important;
+        color: #cbd5e1 !important;
+        font-weight: 600 !important;
+        line-height: 1.2 !important;
+    }
+
+    .brand-text span, 
+    .brand-text div {
+        font-size: 11px !important;
+        color: #94a3b8 !important;
+        margin-top: 4px !important;
+        display: block !important;
+    }
+
+    .nav-links-custom a { color: #cbd5e1; text-decoration: none; font-weight: 600; font-size: 14px; margin-left: 24px; padding-bottom: 4px; }
+    .nav-links-custom a.active { color: #ffffff; border-bottom: 2px solid var(--vrsec-orange); }
+    
+    .dashboard-hero {
+        background: #ffffff !important;
+        padding: 24px !important;
+        border-radius: var(--radius-main) !important;
+        box-shadow: var(--card-shadow) !important;
+        margin-bottom: 32px !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .btn-primary {
+        background-color: var(--vrsec-blue);
+        color: white !important;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: transform 0.2s;
+    }
+    .btn-primary:hover {
+        transform: translateY(-1px);
+    }
+    .stats-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 24px !important;
+        margin-bottom: 40px !important;
+    }
+    .stat-card {
+        background: #ffffff !important;
+        border-radius: var(--radius-main) !important;
+        padding: 24px !important;
+        box-shadow: var(--card-shadow) !important;
+        border-top: 5px solid #64748b !important;
+    }
+    .stat-card.stat-valid { border-top-color: #10b981 !important; }
+    .stat-card.stat-invalid { border-top-color: #ef4444 !important; }
+    .stat-card.stat-review { border-top-color: #f59e0b !important; }
+    .stat-label { font-size: 12px !important; font-weight: 700; text-transform: uppercase; color: #64748b !important; }
+    .stat-value { font-size: 36px !important; font-weight: 800; color: #0f172a !important; margin-top: 10px !important; }
+    .panel {
+        background: #ffffff !important;
+        border-radius: var(--radius-main) !important;
+        box-shadow: var(--card-shadow) !important;
+        overflow: hidden !important;
+        margin-bottom: 40px;
+    }
+    .panel-head { padding: 24px !important; border-bottom: 1px solid #f1f5f9 !important; display: flex; justify-content: space-between; align-items: center; }
+    .panel-meta { font-size: 14px; color: #64748b; font-weight: 600; }
+    .table-wrap { overflow-x: auto; width: 100%; }
+    .history-table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { background-color: #f8fafc !important; padding: 16px 24px !important; font-size: 12px; font-weight: 700; color: #64748b !important; border-bottom: 1px solid #edf2f7; }
+    td { padding: 18px 24px !important; font-size: 14px; color: #334155 !important; border-bottom: 1px solid #f1f5f9; }
+    .pill { padding: 6px 12px !important; border-radius: 20px !important; font-size: 12px; font-weight: 600; display: inline-block !important; text-transform: uppercase; }
+    .pill-method { background-color: #f1f5f9 !important; color: #475569 !important; }
+    .pill-verified, .pill-valid, .pill-authentic { background-color: #d1fae5 !important; color: #065f46 !important; }
+    .pill-fraudulent, .pill-invalid, .pill-tampered { background-color: #fee2e2 !important; color: #991b1b !important; }
+    .pill-needs-manual-review, .pill-manual-review, .pill-review-required { background-color: #fef3c7 !important; color: #92400e !important; }
+    .no-records { padding: 40px; text-align: center; color: #64748b; font-weight: 500; }
+</style>
+{% endblock %}
+
+{% block content %}
+<header class="app-header-override">
+    <div class="brand-block">
+        <img class="brand-logo" src="{{ url_for('static', filename='vrlogo.png') }}" alt="VRSEC Crest">
+        <div class="brand-text">
+            <h1>SIDDHARTHA ACADEMY OF HIGHER EDUCATION</h1>
+            <p>(Deemed to be University)</p>
+            <p>Digital Certificate Verification Registry Core</p>
+        </div>
+    </div>
+    <nav class="nav-links-custom">
+        <a href="/">Upload System</a>
+        <a href="/dashboard" class="active">Control Centre Dashboard</a>
+    </nav>
+</header>
+
+<section class="dashboard-hero">
+  <div>
+    <h2 style="color:#0f172a; font-weight:800; font-size:24px; margin:0;">Verification Dashboard</h2>
+    <p style="color:#64748b; font-size:14px; margin-top:4px; margin-bottom:0;">Every upload is logged with method, extracted data, status, confidence, and timestamp.</p>
+  </div>
+  <!-- ✅ FIXED: + New Upload button triggers the file browser directly on the dashboard! -->
+<div class="hero-actions">
+    <!-- This form submits the certificate file straight to the server upload pipeline without leaving the dashboard -->
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('index') }}" id="dashboardUploadForm" style="display: inline-block;">
+        <input type="file" id="dashboard_cert_input" name="certificate" accept=".pdf,.png,.jpg,.jpeg,.gif,.webp" required style="display:none;" onchange="document.getElementById('dashboardUploadForm').submit();">
+        
+        <button type="button" class="btn-primary" onclick="document.getElementById('dashboard_cert_input').click();" style="background-color: #185FA5; color: white; padding: 10px 20px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
+            + New Upload
+        </button>
+    </form>
+
+    <form action="{{ url_for('import_database') }}" method="POST" enctype="multipart/form-data" style="display:inline-block; margin-left:10px;">
+        <input type="file" name="csv_file" accept=".csv" required onchange="this.form.submit()" style="display:none;" id="csvUpload">
+        <label for="csvUpload" class="btn-primary" style="background-color: #185FA5; color: white; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor:pointer; display: inline-block;">+ Import Student Database</label>
+    </form>
+</div>
+
+</section>
+
+<section class="stats-grid">
+  <article class="stat-card">
+    <p class="stat-label">Total checks</p>
+    <p class="stat-value">{{ stats.total_checks if stats else 0 }}</p>
+  </article>
+  <article class="stat-card stat-valid">
+    <p class="stat-label">Verified</p>
+    <p class="stat-value" style="color:#10b981;">{{ stats.verified_count if stats else 0 }}</p>
+  </article>
+  <article class="stat-card stat-invalid">
+    <p class="stat-label">Fraudulent</p>
+    <p class="stat-value" style="color:#ef4444;">{{ stats.fraudulent_count if stats else 0 }}</p>
+  </article>
+  <article class="stat-card stat-review">
+    <p class="stat-label">Manual review</p>
+    <p class="stat-value" style="color:#f59e0b;">{{ stats.manual_review_count if stats else 0 }}</p>
+  </article>
+</section>
+
+<section class="panel">
+  <div class="panel-head">
+    <h2 style="color:#0f172a; font-size:18px; font-weight:700; margin:0;">Upload History</h2>
+    <span class="panel-meta">{{ history|length if history else 0 }} record(s)</span>
+  </div>
+
+  {% if history %}
+  <div class="table-wrap">
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>Uploaded file</th>
+          <th>Student</th>
+          <th>Roll no.</th>
+          <th>Certificate ID</th>
+          <th>Method</th>
+          <th>Status</th>
+          <th>Confidence</th>
+          <th>Timestamp</th>
+          <th>Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in history %}
+        <tr>
+          <td>
+            <span class="file-name" style="font-weight:600; color:#1e293b;">{{ row.uploaded_filename }}</span>
+            {% if row.certificate_file %}<br><code class="small" style="color:#94a3b8; font-size:11px;">{{ row.certificate_file }}</code>{% endif %}
+          </td>
+          <td><b>{{ row.student_name or "—" }}</b></td>
+          <td><code>{{ row.roll_no or "—" }}</code></td>
+          <td><code>{{ row.certificate_id or "—" }}</code></td>
+          <td><span class="pill pill-method">{{ row.verification_method|upper if row.verification_method else "OCR" }}</span></td>
+          <td><span class="pill pill-{{ row.status|lower|replace(' ', '-') if row.status else 'valid' }}">{{ row.status or "Verified Authentic" }}</span></td>
+          <td><b>{{ row.confidence_display or "100%" }}</b></td>
+          <td style="color:#64748b; font-size:13px;">{{ row.verification_timestamp_display or "Just Now" }}</td>
+          <td>
+            {% if row.download_url %}
+              <a href="{{ row.download_url }}" target="_blank" style="color:var(--vrsec-blue); font-weight:600; text-decoration:none;">Download</a>
+            {% else %}
+              <span class="muted" style="color:#94a3b8;">—</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="no-records">
+      <p style="margin:0;">No verification records found in the audit history logs.</p>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

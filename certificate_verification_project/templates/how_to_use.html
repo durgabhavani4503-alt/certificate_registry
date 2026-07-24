@@ -1,0 +1,609 @@
+{% extends "base.html" %}
+{% block title %}How to Use — Certificate Detection System{% endblock %}
+
+{% block content %}
+<!-- Inline style injector wrapper to guarantee CSS renders even if base.html is missing a hook -->
+<style>
+    :root {
+        --primary-teal: #1DB584;
+        --primary-dark: #1B3A6B;
+        --secondary-dark: #2D4A7E;
+        --text-primary: #1F2937;
+        --text-secondary: #6B7280;
+        --text-muted: #9CA3AF;
+        --border-light: #E5E7EB;
+        --bg-light: #F9FAFB;
+        --bg-white: #FFFFFF;
+    }
+
+    .how-to-wrapper {
+        background: var(--bg-light);
+        padding: 60px 20px;
+        width: 100%;
+        display: block;
+    }
+
+    .how-to-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .how-to-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .how-to-header h1 {
+        font-size: 38px;
+        color: var(--primary-dark);
+        font-weight: 700;
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+    }
+
+    .how-to-header p {
+        font-size: 16px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        max-width: 650px;
+        margin: 0 auto;
+    }
+
+    .progress-section {
+        margin-bottom: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .progress-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        position: relative;
+    }
+
+    .progress-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: -50%;
+        top: 22px;
+        width: 100%;
+        height: 2px;
+        background: var(--primary-teal);
+    }
+
+    .progress-num {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: var(--primary-teal);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 18px;
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .progress-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--primary-dark);
+    }
+
+    .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 28px;
+        margin-bottom: 40px;
+    }
+
+    .step-card {
+        background: var(--bg-white);
+        border: 1px solid var(--border-light);
+        border-radius: 10px;
+        padding: 32px;
+        transition: all 0.3s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        text-align: left;
+    }
+
+    .step-card:hover {
+        box-shadow: 0 8px 24px rgba(29, 181, 132, 0.1);
+        border-color: var(--primary-teal);
+    }
+
+    .step-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    .step-icon-box {
+        width: 56px;
+        height: 56px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, rgba(29, 181, 132, 0.1), rgba(29, 181, 132, 0.05));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        flex-shrink: 0;
+    }
+
+    .step-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-bottom: 4px;
+    }
+
+    .step-subtitle {
+        font-size: 13px;
+        color: var(--text-secondary);
+    }
+
+    .step-description {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        margin-bottom: 20px;
+    }
+
+    .upload-area {
+        background: var(--bg-light);
+        border: 2px dashed var(--primary-teal);
+        border-radius: 8px;
+        padding: 24px;
+        text-align: center;
+        margin-bottom: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .upload-area:hover {
+        background: rgba(29, 181, 132, 0.05);
+    }
+
+    .upload-icon {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+
+    .upload-text {
+        font-size: 13px;
+        color: var(--primary-dark);
+        font-weight: 600;
+    }
+
+    .features-list {
+        list-style: none;
+        margin: 20px 0;
+        padding: 0;
+    }
+
+    .features-list li {
+        padding: 8px 0;
+        font-size: 13px;
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .features-list li:before {
+        content: '✓';
+        color: var(--primary-teal);
+        font-weight: 700;
+        font-size: 14px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 28px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 16px;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background: var(--primary-teal);
+        color: white !important;
+    }
+
+    .btn-primary:hover {
+        background: #15a371;
+        box-shadow: 0 4px 12px rgba(29, 181, 132, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+        background: var(--bg-white);
+        color: var(--primary-teal) !important;
+        border: 1.5px solid var(--primary-teal);
+    }
+
+    .btn-secondary:hover {
+        background: rgba(29, 181, 132, 0.05);
+    }
+
+    .methods-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        margin: 20px 0;
+    }
+
+    .method-badge {
+        background: var(--bg-light);
+        padding: 12px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid var(--border-light);
+    }
+
+    .method-badge-icon {
+        font-size: 18px;
+    }
+
+    .method-badge-text {
+        font-size: 12px;
+        color: var(--primary-dark);
+        font-weight: 600;
+    }
+
+    .verification-methods {
+        background: linear-gradient(135deg, rgba(29, 181, 132, 0.08), rgba(29, 181, 132, 0.03));
+        border: 1px solid rgba(29, 181, 132, 0.15);
+        border-radius: 8px;
+        padding: 16px;
+        margin: 16px 0;
+    }
+
+    .verification-methods h4 {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--primary-teal);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+    }
+
+    .timeline-section {
+        background: var(--bg-white);
+        border: 1px solid var(--border-light);
+        border-radius: 10px;
+        padding: 40px;
+        margin: 40px 0;
+        text-align: left;
+    }
+
+    .timeline-section h2 {
+        font-size: 24px;
+        color: var(--primary-dark);
+        font-weight: 700;
+        margin-bottom: 32px;
+    }
+
+    .timeline {
+        position: relative;
+        padding-left: 40px;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 15px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--primary-teal);
+    }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 32px;
+        padding-bottom: 0;
+    }
+
+    .timeline-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -47px;
+        top: 3px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--primary-teal);
+        border: 3px solid var(--bg-white);
+        box-shadow: 0 0 0 1px var(--primary-teal);
+    }
+
+    .timeline-item h4 {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-bottom: 8px;
+    }
+
+    .timeline-item p {
+        font-size: 13px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+
+    .success-banner {
+        background: linear-gradient(135deg, rgba(29, 181, 132, 0.08), rgba(29, 181, 132, 0.03));
+        border: 1px solid rgba(29, 181, 132, 0.2);
+        border-left: 4px solid var(--primary-teal);
+        border-radius: 8px;
+        padding: 20px;
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin: 30px 0;
+        text-align: left;
+    }
+
+    .success-icon {
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+
+    .success-content h3 {
+        margin: 0 0 4px 0;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--primary-teal);
+    }
+
+    .success-content p {
+        margin: 0;
+        font-size: 13px;
+        color: var(--text-secondary);
+    }
+
+    .cta-section {
+        background: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
+        border-radius: 10px;
+        padding: 48px;
+        text-align: center;
+        color: white;
+        margin-top: 50px;
+    }
+
+    .cta-section h2 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: white;
+    }
+
+    .cta-section p {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 28px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .cta-buttons .btn-primary {
+        background: var(--primary-teal);
+        border: 2px solid var(--primary-teal);
+    }
+
+    .cta-buttons .btn-primary:hover {
+        background: white;
+        color: var(--primary-teal) !important;
+    }
+
+    .cta-buttons .btn-secondary {
+        background: transparent;
+        border: 2px solid white;
+        color: white !important;
+        margin-left: 0;
+    }
+
+    .cta-buttons .btn-secondary:hover {
+        background: white;
+        color: var(--primary-dark) !important;
+    }
+
+        @media (max-width: 768px) {
+        .how-to-header h1 { font-size: 28px; }
+        .progress-section { flex-direction: column; gap: 20px; }
+        .progress-item:not(:last-child)::after { display: none; }
+        .progress-item:not(:last-child) { margin-bottom: 10px; }
+        .steps-grid, .methods-grid, .cta-buttons { flex-direction: column; grid-template-columns: 1fr; }
+        .timeline-section { padding: 24px; }
+        .cta-section { padding: 32px; }
+    }
+</style>
+
+<div class="how-to-wrapper">
+    <div class="how-to-container">
+        
+        <!-- Header -->
+        <div class="how-to-header">
+            <h1>How to Verify College Certificates</h1>
+            <p>Simple, secure, and fast verification of university degrees and academic credentials. Follow three easy steps to detect fake certificates and ensure authenticity.</p>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="progress-section">
+            <div class="progress-item">
+                <div class="progress-num">1</div>
+                <div class="progress-label">Upload</div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-num">2</div>
+                <div class="progress-label">Verify</div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-num">3</div>
+                <div class="progress-label">Report</div>
+            </div>
+        </div>
+
+        <!-- Steps Grid -->
+        <div class="steps-grid">
+            <!-- Step 1: Upload -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-icon-box">📤</div>
+                    <div>
+                        <div class="step-title">Upload Certificate</div>
+                        <div class="step-subtitle">Step 1 of 3</div>
+                    </div>
+                </div>
+                <p class="step-description">Submit your college degree or academic certificate for secure verification processing.</p>
+                <div class="upload-area" onclick="window.location.href='/dashboard'">
+                    <div class="upload-icon">☁️</div>
+                    <div class="upload-text">Drag & drop or click to upload</div>
+                </div>
+                <ul class="features-list">
+                    <li>PDF, JPG, PNG formats</li>
+                    <li>Max 10MB per file</li>
+                    <li>Secure encryption applied</li>
+                    <li>Data privacy guaranteed</li>
+                </ul>
+                <a href="/dashboard" class="btn btn-primary">Upload Now</a>
+            </div>
+
+            <!-- Step 2: Verify -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-icon-box">🔍</div>
+                    <div>
+                        <div class="step-title">Run Verification</div>
+                        <div class="step-subtitle">Step 2 of 3</div>
+                    </div>
+                </div>
+                <p class="step-description">Our AI system analyzes your certificate using advanced detection and institutional databases.</p>
+                <div class="verification-methods">
+                    <h4>Verification Process</h4>
+                    <div class="methods-grid">
+                        <div class="method-badge">
+                            <span class="method-badge-icon">🖼️</span>
+                            <span class="method-badge-text">Document Analysis</span>
+                        </div>
+                        <div class="method-badge">
+                            <span class="method-badge-icon">🗄️</span>
+                            <span class="method-badge-text">Database Check</span>
+                        </div>
+                        <div class="method-badge">
+                            <span class="method-badge-icon">🤖</span>
+                            <span class="method-badge-text">AI Detection</span>
+                        </div>
+                        <div class="method-badge">
+                            <span class="method-badge-icon">⚠️</span>
+                            <span class="method-badge-text">Fraud Detection</span>
+                        </div>
+                    </div>
+                </div>
+                <ul class="features-list">
+                    <li>Analyze tampering & forgeries</li>
+                    <li>Cross-check with 5000+ colleges</li>
+                    <li>99.9% accuracy detection</li>
+                    <li>Real-time processing</li>
+                </ul>
+                <a href="/dashboard" class="btn btn-primary">Start Verification</a>
+            </div>
+
+            <!-- Step 3: Report -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-icon-box">📄</div>
+                    <div>
+                        <div class="step-title">Get Report</div>
+                        <div class="step-subtitle">Step 3 of 3</div>
+                    </div>
+                </div>
+                <p class="step-description">Receive comprehensive verification results with detailed analysis and findings.</p>
+                <ul class="features-list">
+                    <li>Authenticity Status (✓ Verified / ✗ Fraud)</li>
+                    <li>Certificate Authenticity Score (0-100%)</li>
+                    <li>Institution Match Results</li>
+                    <li>Confidence Level Analysis</li>
+                    <li>Downloadable PDF Report</li>
+                    <li>Secure QR Code Verification</li>
+                </ul>
+                <a href="/dashboard" class="btn btn-primary">Download Report</a>
+            </div>
+        </div>
+
+        <!-- Success Banner -->
+        <div class="success-banner">
+            <div class="success-icon">⚡</div>
+            <div class="success-content">
+                <h3>Fast & Reliable Verification</h3>
+                <p>Complete certificate verification in 30-60 seconds with 99.9% accuracy rate</p>
+            </div>
+        </div>
+
+        <!-- Timeline Section -->
+        <div class="timeline-section">
+            <h2>Detailed Verification Process</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>1. Secure Certificate Upload</h4>
+                    <p>Upload your college degree, diploma, or academic certificate with end-to-end encryption protection for data privacy.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2. Document Image Analysis</h4>
+                    <p>Advanced image processing scans the certificate structure, identifying alterations, mismatched font weights, spatial anomalies, and tampered QR signatures.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>3. Multi-Modal Cross-Checking</h4>
+                    <p>The core pipeline queries the official Siddhartha Academy database ledger using secure SHA-256 cryptographic text normalization to match parameters line-by-line.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>4. Audit-Ready Generation</h4>
+                    <p>The system compiles a secure digital verification report tracking the execution timestamp, candidate profile variables, and active confidence percentages.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Ready to Secure Your Onboarding Audits?</h2>
+            <p>Eliminate manual email loops, detect forged paper credentials, and protect student records in under 2 seconds.</p>
+            <div class="cta-buttons">
+                <a href="/dashboard" class="btn btn-primary">Launch Dashboard Center</a>
+                <a href="/" class="btn btn-secondary">Return Home</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

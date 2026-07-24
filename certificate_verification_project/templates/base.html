@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Siddhartha Academy of Higher Education{% endblock %}</title>
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b; line-height: 1.6; background: #f8fafc; }
+        a { text-decoration: none; color: inherit; }
+        
+        /* --- Premium Clean Navbar Layout (No AuthentiVerify Text Focus) --- */
+        nav { 
+            background: #ffffff; 
+            border-bottom: 4px solid #f15a24; 
+            padding: 16px 50px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: 0 4px 30px rgba(0,0,0,0.03); 
+        }
+        .brand-block { display: flex; align-items: center; gap: 14px; cursor: pointer; }
+        .brand-logo { height: 48px; width: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05)); }
+        
+        /* Highlighted Big College Name Identity */
+        .brand-title-text h2 { 
+            margin: 0; 
+            font-size: 19px; 
+            font-weight: 800; 
+            color: #0C447C; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            line-height: 1.2; 
+        }
+        .brand-title-text p { 
+            margin: 2px 0 0 0; 
+            font-size: 12px; 
+            color: #64748b; 
+            font-weight: 600; 
+            line-height: 1.2; 
+        }
+        
+        /* Centered Menu Clusters precisely matching your request */
+        nav .nav-links-center { display: flex; gap: 32px; font-size: 14px; align-items: center; }
+        nav .nav-links-center a { color: #475569; font-weight: 600; transition: color 0.2s; padding: 6px 0; text-decoration: none; }
+        nav .nav-links-center a:hover { color: #185FA5; }
+        
+        /* Right Side Portal Operations button */
+        .btn-portal-dashboard { 
+            background: #185FA5; 
+            color: white !important; 
+            padding: 10px 20px; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            font-weight: 700; 
+            text-decoration: none; 
+            box-shadow: 0 4px 14px rgba(24, 95, 165, 0.15); 
+            transition: transform 0.2s; 
+        }
+        .btn-portal-dashboard:hover { transform: translateY(-1px); }
+
+        .page-content-wrapper { min-height: calc(100vh - 280px); }
+
+        /* Toast Notifications Banner alerts */
+        .flash-container { max-width: 1200px; margin: 20px auto 0 auto; padding: 0 40px; }
+        .flash-box { padding: 14px 24px; border-radius: 8px; font-weight: 600; font-size: 14px; margin-bottom: 15px; border-left: 5px solid #64748b; background: white; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .flash-box.success { border-left-color: #10b981; color: #065f46; background-color: #d1fae5; }
+        .flash-box.error { border-left-color: #ef4444; color: #991b1b; background-color: #fee2e2; }
+
+        footer { background: #0C447C; color: white; padding: 50px 40px 30px; border-top: 4px solid #f15a24; margin-top: 60px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto 40px auto; }
+        .footer-section h4 { font-size: 13px; margin-bottom: 16px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
+        .footer-section a { display: block; color: rgba(255,255,255,0.7); font-size: 13px; margin-bottom: 8px; text-decoration: none; }
+        .footer-section a:hover { color: white; text-decoration: underline; }
+        .footer-bottom { border-top: 0.5px solid rgba(255,255,255,0.1); padding-top: 30px; text-align: center; }
+        .footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.6); margin: 0; }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <!-- Clean Corporate Navigation Header Configuration -->
+    <nav>
+        <div class="brand-block" onclick="window.location.href='/'">
+            <!-- College Crest Logo Asset -->
+            <img class="brand-logo" src="{{ url_for('static', filename='vrlogo.png') }}" alt="VRSEC College Crest">
+            <div class="brand-title-text">
+    <h2>Siddhartha Academy of Higher Education</h2>
+    <p>(Deemed to be University) — <span style="color:#185FA5; font-weight:700; font-family:monospace;">GCP Cloud Run Architecture</span></p>
+</div>
+
+        </div>
+        
+        <!-- Clean navbar options centered exactly as requested -->
+        <div class="nav-links-center">
+            <a href="/how-to-use">How to Use</a>
+            <a href="/features">Features</a>
+            <a href="/industry">Industry</a>
+            <a href="/support">Support</a>
+        </div>
+        
+        <div class="nav-buttons">
+            <a href="/dashboard" class="btn-portal-dashboard">Open System Dashboard</a>
+        </div>
+    </nav>
+
+    <!-- System message toasts pipeline -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div class="flash-box {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+       
+    <main class="page-content-wrapper" style="max-width: 100% !important; padding: 0 !important; margin: 0 !important;">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>Platform Track</h4>
+                <a href="/how-to-use">How It Works</a>
+                <a href="/features">Core Features</a>
+            </div>
+            <div class="footer-section">
+                <h4>Security Matrix</h4>
+                <a href="#">Anti-Tamper OCR Logic</a>
+                <a href="#">SHA-256 Hash Ledgers</a>
+            </div>
+            <div class="footer-section">
+                <h4>Institution Node</h4>
+                <a href="#">Siddhartha Academy</a>
+                <a href="#">CampX Application API</a>
+            </div>
+            <div class="footer-section">
+                <h4>Compliance</h4>
+                <a href="#">Privacy Framework</a>
+                <a href="#">Terms of Use</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Verification Portal Node — Engineered for Siddhartha Academy of Higher Education. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

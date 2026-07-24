@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}Siddhartha Academy Of Higher Education— Certificate Authentication Center{% endblock %}
+
+{% block extra_css %}
+<style>
+    :root {
+        --vrsec-blue: #185FA5;
+        --vrsec-dark: #0C447C;
+        --mint-green: #10b981;
+        --mint-hover: #059669;
+        --text-slate: #475569;
+        --vrsec-orange: #f15a24;
+    }
+
+    .hero-container-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 50px;
+        align-items: center;
+        max-width: 1200px;
+        margin: 60px auto;
+        padding: 0 40px;
+        font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .hero-content-left { text-align: left; }
+    .hero-content-left h1 { font-size: 44px; font-weight: 800; color: var(--vrsec-dark); line-height: 1.25; margin: 0 0 24px 0; letter-spacing: -0.5px; }
+    .hero-content-left p { font-size: 16px; color: var(--text-slate); line-height: 1.6; margin: 0 0 16px 0; }
+
+    .hero-action-row { display: flex; gap: 16px; align-items: center; margin: 32px 0; }
+    
+    .btn-main-upload-trigger {
+        background-color: var(--mint-green);
+        color: white;
+        border: none;
+        padding: 14px 32px;
+        border-radius: 30px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+        transition: background-color 0.2s, transform 0.2s;
+    }
+    .btn-main-upload-trigger:hover { background-color: var(--mint-hover); transform: translateY(-1px); }
+    
+    .btn-sub-demo { background: transparent; color: #1e293b; border: 1px solid #cbd5e1; padding: 14px 28px; border-radius: 30px; font-size: 15px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+
+    .trust-checks-row { display: flex; gap: 20px; font-size: 13px; color: #64748b; font-weight: 600; }
+
+    .hero-graphics-right { position: relative; display: flex; justify-content: center; align-items: center; gap: 24px; }
+    .graphic-document-card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; width: 220px; text-align: center; }
+    .graphic-phone-preview { background: #0f172a; border-radius: 20px; padding: 20px; width: 220px; box-shadow: 0 30px 60px rgba(15,23,42,0.15); color: white; }
+
+    .telemetry-output-panel { max-width: 1200px; margin: 40px auto; padding: 0 40px; }
+    .extracted { background: #0f172a; color: #f8fafc; border-radius: 12px; padding: 25px; border-top: 4px solid var(--vrsec-orange); margin-top: 40px; }
+    
+    /* Dedicated Content Section Layouts */
+    .info-section { max-width: 1200px; margin: 60px auto; padding: 0 40px; font-family: system-ui, sans-serif; }
+    .info-section h2 { font-size: 28px; color: var(--vrsec-dark); font-weight: 800; margin-bottom: 16px; }
+    .info-section p { font-size: 15px; color: var(--text-slate); line-height: 1.6; max-width: 800px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="hero-container-grid">
+    
+    <!-- LEFT SIDE CONTENT: Brand text presentation -->
+    <section class="hero-content-left">
+        <h1>Secure every original document with QR Mark</h1>
+        <p>Ideal for businesses, healthcare providers, educational institutions, and government agencies seeking reliable document security.</p>
+        <p>Prevent document fraud and ensure document security with QR Mark's advanced QR Code verification system.</p>
+        <p>Recipients can simply scan the QR Code with their smartphone to access a secure landing page showing the original document details—no app downloads needed.</p>
+
+        <!-- ✅ MARKETING LINK FLOW: Points straight to admin portal as specified -->
+        <div class="hero-action-row">
+            <a href="/admin/login" class="btn-main-upload-trigger">
+                <span>Try now for free</span> ➔
+            </a>
+            <a href="/dashboard" class="btn-sub-demo">📊 Control Dashboard</a>
+        </div>
+
+        <div class="trust-checks-row">
+            <span>✓ Free Starter Plan</span>
+            <span>✓ No Credit Card Required</span>
+        </div>
+    </section>
+
+    <!-- RIGHT SIDE GRAPHICS CONTENT Layout from image -->
+    <section class="hero-graphics-right">
+        <div class="graphic-document-card">
+            <div style="width:100%; height:110px; background:#f15a24; opacity:0.06; border-radius:6px; margin-bottom:12px;"></div>
+            <div style="font-weight:800; font-size:14px; color:#0C447C; text-transform:uppercase;">Degree Certificate</div>
+            <div style="font-size:11px; color:#64748b; margin-top:4px;">Scan to Verify Status</div>
+            <div style="font-size:32px; margin-top:12px; color:#185FA5;">🔳</div>
+        </div>
+
+        <div class="graphic-phone-preview">
+            <div style="background: #1e293b; border-radius: 12px; padding: 16px; text-align: left; border: 1px solid #334155;">
+                <div style="color:#10b981; font-weight:800; font-size:12px; margin-bottom:10px; display:flex; align-items:center; gap:6px;">🔹 Document Details</div>
+                <div style="color:#94a3b8; font-size:10px; font-weight:700; text-transform:uppercase;">Student Name:</div>
+                <div style="font-weight:700; font-size:13px; margin-bottom:10px; color:#f8fafc;">Verified Graduate</div>
+                <div style="color:#94a3b8; font-size:10px; font-weight:700; text-transform:uppercase;">Verdict Status:</div>
+                <div style="color:#10b981; font-weight:800; font-size:13px; margin-top:2px;">✓ Authentic</div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- TARGET LINK LAYOUT SECTIONS -->
+<section id="how-to-use" class="info-section">
+    <h2>How to Use</h2>
+    <p>Authorized academic administrators upload master candidate spreadsheets inside the central registry database center. Once committed, the system binds student indices to secure validation fields, enabling recruiters to cross-check credentials instantly from any device.</p>
+</section>
+
+<section id="features" class="info-section">
+    <h2>Features</h2>
+    <p>Features an advanced multi-modal scanning chain running automated text segmentation, institutional template filtering rules, and zero-trust verification routing layers that isolate variables to target grades directly.</p>
+</section>
+
+<section id="industry" class="info-section">
+    <h2>Industry Application</h2>
+    <p>Engineered for high-volume corporate recruitment agencies, background verification bureaus, and collegiate registrars looking to eliminate manual email screening loops and stop credential fraud on contact.</p>
+</section>
+
+<section id="support" class="info-section">
+    <h2>Support Desk</h2>
+    <p>Access configuration manuals, operational setup logs, data ingestion tracking guidelines, and systemic platform support files monitored natively by the Siddhartha Academy technical registry administrators.</p>
+</section>
+
+<!-- PROCESSING PIPELINE DATA LOG CONTAINER VIEW -->
+{% if last_extraction %}
+<div class="telemetry-output-panel">
+    <section class="extracted">
+        <h2 style="font-size:15px; margin:0 0 16px 0; color:white; text-transform:uppercase; font-weight:700; letter-spacing:0.5px;">⚡ Active Pipeline Telemetry Stream</h2>
+        {% if last_extraction.certificate_entries %}
+            {% for entry in last_extraction.certificate_entries %}
+                <div style="background:#1e293b; padding:18px; border-radius:8px; margin-bottom:14px; border:1px solid #334155; text-align:left;">
+                    <p style="margin:0 0 8px 0; font-size:13px; color:#e2e8f0;">Target Asset: <code style="color:#38bdf8; font-weight:600;">{{ entry.file }}</code></p>
+                    <p style="margin:0 0 12px 0; font-size:11px; color:#f59e0b; text-transform:uppercase; font-weight:800; letter-spacing:0.5px;">Method Node: {{ entry.source|upper }}</p>
+                    
+                    {% if entry.verification %}
+                        <div style="padding:12px; background:rgba(16,185,129,0.08); border-left:4px solid #10b981; border-radius:4px;">
+                            <span style="font-weight:800; color:#34d399; font-size:13px;">Verdict Resolution: {{ entry.verification.status }}</span>
+                            <p style="margin:6px 0 0 0; color:#cbd5e1; font-size:12px; line-height:1.4;">{{ entry.verification.message }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </section>
+</div>
+{% endif %}
+
+{% endblock %}

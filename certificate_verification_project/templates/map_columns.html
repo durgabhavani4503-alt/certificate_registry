@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Column Mapping Configuration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .map-container { max-width: 600px; margin: 50px auto; padding: 30px; background: #ffffff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); font-family: sans-serif; }
+        h2 { color: #1e3a8a; border-bottom: 2px solid #f3f4f6; padding-bottom: 10px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; display: flex; flex-direction: column; }
+        label { font-weight: bold; margin-bottom: 8px; color: #374151; }
+        select { padding: 10px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px; background-color: #f9fafb; width: 100%; }
+        .btn-submit { background: #10b981; color: white; border: none; padding: 12px 20px; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; transition: background 0.2s; margin-top: 10px; }
+        .btn-submit:hover { background: #059669; }
+        .info-txt { font-size: 13px; color: #6b7280; margin-bottom: 20px; line-height: 1.4; }
+    </style>
+</head>
+<body>
+    <div class="map-container">
+        <h2>Configure Spreadsheet Mapping Fields</h2>
+        <p class="info-txt">Match the system parameters on the left with the exact row header titles found inside your custom imported spreadsheet layout.</p>
+        
+        <!-- Change the url_for path string from process_database_mapping to process_mapping -->
+        <form action="{{ url_for('process_mapping') }}" method="POST">
+
+            <input type="hidden" name="file_path" value="{{ file_path }}">
+            
+            <div class="form-group">
+                <label>1. Student Name <span style="color:red;">*</span></label>
+                <select name="name_select" required>
+                    <option value="">-- Choose Matching Header --</option>
+                    {% for header in headers %}
+                        <option value="{{ header }}" {% if header.upper() in ['NAME', 'STUDENT NAME', 'CANDIDATE NAME', 'FULL NAME'] %}selected{% endif %}>{{ header }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>2. Hall Ticket / Roll Number <span style="color:red;">*</span></label>
+                <select name="roll_no_select" required>
+                    <option value="">-- Choose Matching Header --</option>
+                    {% for header in headers %}
+                        <option value="{{ header }}" {% if header.upper() in ['ROLL NO', 'ROLLNO', 'HTNO', 'HALL TICKET NO', 'REGISTER NUMBER'] %}selected{% endif %}>{{ header }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>3. Provisional Certificate ID <span style="color:red;">*</span></label>
+                <select name="cert_id_select" required>
+                    <option value="">-- Choose Matching Header --</option>
+                    {% for header in headers %}
+                        <option value="{{ header }}" {% if header.upper() in ['PC NO', 'PC.NO', 'CERTIFICATE NO', 'CERTIFICATE NUMBER'] %}selected{% endif %}>{{ header }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>4. Degree Course (Optional)</label>
+                <select name="course_select">
+                    <option value="">-- Leave Unmapped / Empty --</option>
+                    {% for header in headers %}
+                        <option value="{{ header }}" {% if header.upper() in ['COURSE', 'DEGREE'] %}selected{% endif %}>{{ header }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>5. Department Branch (Optional)</label>
+                <select name="branch_select">
+                    <option value="">-- Leave Unmapped / Empty --</option>
+                    {% for header in headers %}
+                        <option value="{{ header }}" {% if header.upper() in ['BRANCH', 'SPECIALIZATION', 'DEPARTMENT'] %}selected{% endif %}>{{ header }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>6. Cumulative CGPA (Optional)</label>
+                <select name="cgpa_select">
+                    <option value="">-- Leave Unmapped / Empty --</option>
+                    {% for header in headers %}
+                        <option value="{{ header }}" {% if header.upper() in ['CGPA', 'MARKS', 'SCORE'] %}selected{% endif %}>{{ header }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn-submit">Finalize Standardized Data Import</button>
+        </form>
+    </div>
+</body>
+</html>

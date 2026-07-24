@@ -1,0 +1,6 @@
+student_name,roll_no,certificate_id,course,branch,cgpa,year,issue_date,verification_status
+Test Student,24CS0001,CERT2025001,B.Tech,Computer Science & Engineering,9.50,2025,22-07-2025,Verified
+Rahul Kumar,24CS0002,CERT2025002,B.Tech,Computer Science & Engineering,8.92,2025,22-07-2025,Verified
+Priya Sharma,24CS0003,CERT2025003,B.Tech,Electronics & Communication Engineering,9.10,2025,22-07-2025,Verified
+Amit Reddy,24CS0004,CERT2025004,B.Tech,Mechanical Engineering,8.75,2025,22-07-2025,Verified
+Sneha Patel,24CS0005,CERT2025005,B.Tech,Information Technology,9.32,2025,22-07-2025,Verified
